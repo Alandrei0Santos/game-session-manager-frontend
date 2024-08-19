@@ -1,49 +1,21 @@
-import { Breadcrumb, Layout, Menu, theme } from 'antd'
 import './App.css'
 import './index.css'
-
-const { Header, Content, Footer } = Layout
-
-const items = new Array(2).fill(null).map((_, index) => ({
-  key: index + 1,
-  label: `nav ${index + 1}`,
-}))
+import { GameStart } from './pages/GameStart'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { GameSessionForm } from './pages/GameSessionForm'
+import { GameSessionList } from './pages/GameSessionList'
 
 const App = (): JSX.Element => {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken()
   return (
     <>
-      <Layout style={{ minHeight: '100vh' }}>
-        <Header>
-          <Menu
-            theme="dark"
-            items={items}
-            mode="horizontal"
-            defaultSelectedKeys={['2']}
-            style={{ flex: 1, minWidth: 0 }}
-          />
-        </Header>
-        <Content style={{ padding: '0 48px' }}>
-          <Breadcrumb
-            items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
-            style={{ margin: '16px 0' }}
-          ></Breadcrumb>
-          <div
-            style={{
-              background: colorBgContainer,
-              minHeight: 280,
-              padding: 24,
-
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            Content
-          </div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>Alandrei Santos &copy;</Footer>
-      </Layout>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<GameStart></GameStart>} />
+          <Route path="/game-session" element={<GameSessionForm></GameSessionForm>} />
+          <Route path="/game-session-list" element={<GameSessionList></GameSessionList>} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

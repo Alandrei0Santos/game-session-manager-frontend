@@ -1,3 +1,7 @@
-body {
-  height: 100vh;
+.custom-border-colors {
+  @apply border-[10px];
+  border-top-color: red;
+  border-right-color: blue;
+  border-bottom-color: green;
+  border-left-color: yellow;
 }
