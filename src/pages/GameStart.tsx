@@ -16,10 +16,13 @@ export const GameStart = (): JSX.Element => {
       <Card
         style={usePixelBgStyle('#4279a2')}
         styles={{ body: { padding: '0.5rem' } }}
-        className="pixel-corners w-full max-w-[800px] m mx-8 bg-[#4a95ce] rounded-none !p-0 "
+        className="pixel-corners w-full max-w-[800px] mx-8 bg-[#4a95ce] rounded-none !p-0 "
       >
         <div style={usePixelBgStyle('#d8f9ec')} className="pixel-corners p-2">
-          <div style={{ color: '#f9feec' }} className="font-pressStart text-center text-[3.5rem] leading-normal">
+          <div
+            style={{ color: '#f9feec' }}
+            className="font-pressStart text-center text-[3.5rem] 500px:text-[2rem] leading-normal"
+          >
             {'Game Session Manager'.toUpperCase()}
           </div>
           <div className="flex flex-col items-center">

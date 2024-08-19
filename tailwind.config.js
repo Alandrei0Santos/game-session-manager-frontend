@@ -8,6 +8,9 @@ export default {
         pdark: ['Pdark', 'sans-serif'],
         pressStart: ['PressStart2P', 'sans-serif'],
       },
+      screens: {
+        '500px': { max: '500px' },
+      },
     },
   },
   plugins: [],

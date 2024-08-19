@@ -1,184 +1,63 @@
-import { Card, Table } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { Card, message, Table } from 'antd'
 import { GoBackButton } from '../components/GoBackButton'
+import { GameSession, listGameSessions } from '../api/gameSessionManager'
+import { useState, useEffect } from 'react'
 
 export const GameSessionList = (): JSX.Element => {
-  const navigate = useNavigate()
+  const [dataSource, setDataSource] = useState<GameSession[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
 
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-      map: 'duke nukem',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-      map: 'duke nukem',
-    },
-    {
-      key: '3',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-      map: 'duke nukem',
-    },
-    {
-      key: '4',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-      map: 'duke nukem',
-    },
-    {
-      key: '6',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-      map: 'duke nukem',
-    },
-    {
-      key: '9',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-      map: 'duke nukem',
-    },
-    {
-      key: '10',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-      map: 'duke nukem',
-    },
-    {
-      key: '12',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-      map: 'duke nukem',
-    },
-    {
-      key: '53499',
-      map: 'duke nukem',
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const sessions = await listGameSessions()
+        const sessionsWithKeys = sessions.map((session) => ({
+          ...session,
+          key: session.sessionId,
+        }))
 
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-    {
-      key: '5235423',
-      name: 'John',
-      map: 'duke nukem',
-      age: 42,
-      address: '10 Downing Street',
-    },
-    {
-      key: '32435',
-      name: 'John',
-      age: 42,
-      map: 'duke nukem',
-      address: '10 Downing Street',
-    },
-    {
-      key: '534',
-      name: 'John',
-      map: 'duke nukem',
-      age: 42,
-      address: '10 Downing Street',
-    },
-    {
-      key: '9878',
-      name: 'John',
-      map: 'duke nukem',
-      age: 42,
-      address: '10 Downing Street',
-    },
-    {
-      key: '667',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-      map: 'duke nukem',
-    },
-    {
-      key: '55',
-      name: 'John',
-      age: 42,
-      map: 'duke nukem',
-      address: '10 Downing Street',
-    },
-    {
-      key: '234',
-      name: 'John',
-      map: 'duke nukem',
-      age: 42,
-      address: '10 Downing Street',
-    },
-    {
-      key: '4353',
-      map: 'duke nukem',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-    {
-      key: '23',
-      map: 'duke nukem',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-    {
-      key: '65',
-      name: 'John',
-      map: 'duke nukem',
-      age: 42,
-      address: '10 Downing Street',
-    },
-    {
-      key: '69',
-      name: 'John',
-      age: 42,
-      map: 'duke nukem',
-      address: '10 Downing Street',
-    },
-  ]
+        setDataSource(sessionsWithKeys)
+        console.log(sessionsWithKeys)
+      } catch (error) {
+        message.error('Failed to load game sessions')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const columns = [
     {
       title: 'Hostname',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'hostname',
+      key: 'hostname',
     },
     {
       title: 'Players',
-      dataIndex: 'age',
-      key: 'age',
+      dataIndex: 'players',
+      key: 'players',
     },
     {
       title: 'Map',
-      dataIndex: 'address',
-      key: 'address',
+      dataIndex: 'mapSpawn',
+      key: 'mapSpawn',
     },
     {
       title: 'Mode',
-      dataIndex: 'map',
-      key: 'map',
+      dataIndex: 'gameMode',
+      key: 'gameMode',
     },
   ]
 
   return (
     <Card
       styles={{ body: { padding: '1rem' } }}
-      className="w-full max-w-[800px]  bg-[#000] !p-0 rounded-md border-0 "
+      className="w-full max-w-[800px] bg-[#000] !p-0 rounded-md border-0"
     >
       <GoBackButton />
-      <Table dataSource={dataSource} columns={columns} />
+      <Table loading={loading} dataSource={dataSource} columns={columns} />
     </Card>
   )
 }
