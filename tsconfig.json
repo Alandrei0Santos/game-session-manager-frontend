@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["src/assets/*"]
+    },
+    "jsx": "react-jsx", // or "react" depending on your React version
+    "module": "esnext", // Use "esnext" or "commonjs" depending on your setup
+    "target": "es6", // Or a higher version if needed
+    "strict": true, // Enable strict type-checking options
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"], // Include both .ts and .tsx files
+  "exclude": ["node_modules", "dist"], // Exclude folders that shouldn't be compiled
+  "files": [],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
+}
